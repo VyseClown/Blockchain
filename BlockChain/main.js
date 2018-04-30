@@ -106,11 +106,11 @@ dicoin.createTransaction(new Transaction('address1', 'address2', 100));//seriam 
 dicoin.createTransaction(new Transaction('address2', 'address1', 50));
 
 console.log('\n Starting the miner...');
-dicoin.minePendingTransactions('xaviers-address');
+dicoin.minePendingTransactions('Vyse-address');
 
-console.log('\nBalance of xavier is', dicoin.getBalanceOfAddress('xaviers-address'));
+console.log('\nBalance of Vyse is', dicoin.getBalanceOfAddress('Vyse-address'));
 
 console.log('\n Starting the miner again...');
-dicoin.minePendingTransactions('xaviers-address');
+dicoin.minePendingTransactions('Vyse-address');
 
-console.log('\nBalance of xavier is', dicoin.getBalanceOfAddress('xaviers-address'));
+console.log('\nBalance of Vyse is', dicoin.getBalanceOfAddress('Vyse-address'));
