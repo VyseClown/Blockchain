@@ -24,7 +24,7 @@ class Block {
     //é necessario ter uma quantidade de 0 na frente do calculo de hash para provar(proof of work que realmente foi usado muito poder computacional, complicando também cada vez mais o calculo a ser feito
     mineBlock(difficulty) {
         while (this.hash.substring(0, difficulty) !== Array(difficulty + 1).join("0")) {
-            this.nonce++;
+            this.nonce++;//nonce é o numero que é modificado até o conjunto dar um hash começando com a quantidade de zeros que a dificuldade estipular, já que o conteúdo do bloco não pode ser modificado
             this.hash = this.calculateHash();
         }
 
