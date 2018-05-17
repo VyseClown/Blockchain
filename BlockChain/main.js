@@ -120,10 +120,13 @@ console.log('\nBalance of Vyse is', dicoin.getBalanceOfAddress('Vyse-address'));
 console.log('\n Starting the miner again...');
 dicoin.minePendingTransactions('Vyse-address');
 
-console.log('\nBalance of Vyse is', dicoin.getBalanceOfAddress('Vyse-address'));
-console.log('\nBalance of Address2 is', dicoin.getBalanceOfAddress('address2'));
+console.log('\n O balanço do minerador é ', dicoin.getBalanceOfAddress('Vyse-address'));
+console.log('\nO balanço do Rodrigo Brandão é ', dicoin.getBalanceOfAddress('address2'));
 
 console.log('\nA blockchain é valida ?\n' + dicoin.isChainValid());
+
+//menu aqui
+
 
 dicoin.chain[2].transactions = {amount:100};//pode mudar a quantidade novamente para 50, apenas o fato de ter mudado a data fará com que o conjunto de fatores não dê mais o hash correto
 console.log('\nA blockchain é valida ?\n' + dicoin.isChainValid());
