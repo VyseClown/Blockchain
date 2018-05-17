@@ -38,7 +38,7 @@ class Blockchain{
         this.chain = [this.createGenesisBlock()];
         this.difficulty = 2;
         this.pendingTransactions = [];
-        this.miningReward = 5;
+        this.miningReward = 0.1;
     }
 
     createGenesisBlock() {
@@ -102,7 +102,14 @@ class Blockchain{
 }
 
 let dicoin = new Blockchain();
-dicoin.createTransaction(new Transaction('address1', 'address2', 100));//seriam os endereços das carteiras publicas
+dicoin.createTransaction(new Transaction('address1', 'address2', 1000));//seriam os endereços das carteiras publicas
+dicoin.createTransaction(new Transaction('address2', 'address1', 50));
+dicoin.createTransaction(new Transaction('address2', 'address1', 50));
+dicoin.createTransaction(new Transaction('address2', 'address1', 50));
+dicoin.createTransaction(new Transaction('address2', 'address1', 50));
+dicoin.createTransaction(new Transaction('address2', 'address1', 50));
+dicoin.createTransaction(new Transaction('address2', 'address1', 50));
+dicoin.createTransaction(new Transaction('address2', 'address1', 50));
 dicoin.createTransaction(new Transaction('address2', 'address1', 50));
 
 console.log('\n Starting the miner...');
@@ -114,3 +121,9 @@ console.log('\n Starting the miner again...');
 dicoin.minePendingTransactions('Vyse-address');
 
 console.log('\nBalance of Vyse is', dicoin.getBalanceOfAddress('Vyse-address'));
+console.log('\nBalance of Address2 is', dicoin.getBalanceOfAddress('address2'));
+
+console.log('\nA blockchain é valida ?\n' + dicoin.isChainValid());
+
+dicoin.chain[2].transactions = {amount:100};//pode mudar a quantidade novamente para 50, apenas o fato de ter mudado a data fará com que o conjunto de fatores não dê mais o hash correto
+console.log('\nA blockchain é valida ?\n' + dicoin.isChainValid());
