@@ -12,20 +12,20 @@ class Transaction{
 class Block {
     constructor(timestamp, transactions, previousHash = '') {
         this.previousHash = previousHash;
-        this.timestamp = timestamp;
+        this.timestamp = timestamp;//data e horario convertido para UTC
         this.transactions = transactions;
-        this.hash = this.calculateHash();
-        this.nonce = 0;
+        this.hash = this.calculateHash();//assinatura do bloco
+        this.nonce = 0;//unico campo modificavel após a realização da transação para encontrar o hash correto
     }
 
     calculateHash() {
         return SHA256(this.previousHash + this.timestamp + JSON.stringify(this.transactions) + this.nonce).toString();
     }
-    //é necessario ter uma quantidade de 0 na frente do calculo de hash para provar(proof of work que realmente foi usado muito poder computacional, complicando também cada vez mais o calculo a ser feito
+    //é necessario ter uma quantidade de 0 na frente do calculo de hash para provar(proof of work que realmente foi usado muito poder computacional, complicando também cada vez mais o calculo a ser feito)
     mineBlock(difficulty) {
         while (this.hash.substring(0, difficulty) !== Array(difficulty + 1).join("0")) {
             this.nonce++;//nonce é o numero que é modificado até o conjunto dar um hash começando com a quantidade de zeros que a dificuldade estipular, já que o conteúdo do bloco não pode ser modificado
-            this.hash = this.calculateHash();
+            this.hash = this.calculateHash();//
         }
 
         console.log("Bloco minerado: " + this.hash);
@@ -49,7 +49,7 @@ class Blockchain{
         return this.chain[this.chain.length - 1];
     }
 
-    minePendingTransactions(miningRewardAddress){
+    minePendingTransactions(miningRewardAddress){//aqui a transação será "minerada", sendo adicionado um novo bloco
         let block = new Block(Date.now(), this.pendingTransactions, this.getLatestBlock().hash);
         block.mineBlock(this.difficulty);
 
@@ -61,11 +61,11 @@ class Blockchain{
         ];
     }
 
-    createTransaction(transaction){
+    createTransaction(transaction){//adiciona uma transação pendente que será minerada e validada
         this.pendingTransactions.push(transaction);
     }
 
-    getBalanceOfAddress(address){
+    getBalanceOfAddress(address){//retorna o valor do endereço da carteira passado por parametro
         let balance = 0;
 
         for(const block of this.chain){
@@ -112,15 +112,15 @@ dicoin.createTransaction(new Transaction('address2', 'address1', 50));
 dicoin.createTransaction(new Transaction('address2', 'address1', 50));
 dicoin.createTransaction(new Transaction('address2', 'address1', 50));
 
-console.log('\n Starting the miner...');
+console.log('\n Começando a minerar...');
 dicoin.minePendingTransactions('Vyse-address');
 
-console.log('\nBalance of Vyse is', dicoin.getBalanceOfAddress('Vyse-address'));
+console.log('\nO balanço do Vyse é is', dicoin.getBalanceOfAddress('Vyse-address'));
 
-console.log('\n Starting the miner again...');
+console.log('\n Minerando novamente...');
 dicoin.minePendingTransactions('Vyse-address');
 
-console.log('\n O balanço do minerador é ', dicoin.getBalanceOfAddress('Vyse-address'));
+console.log('\n O balanço do minerador Vyse é ', dicoin.getBalanceOfAddress('Vyse-address'));
 console.log('\nO balanço do Rodrigo Brandão é ', dicoin.getBalanceOfAddress('address2'));
 
 console.log('\nA blockchain é valida ?\n' + dicoin.isChainValid());
